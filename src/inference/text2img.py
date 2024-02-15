@@ -5,6 +5,8 @@ from tqdm import tqdm
 import sys
 import time
 
+from model_downloader import download_model
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 
@@ -51,9 +53,29 @@ def load_models(core, core_b):
     print("STAGE B READY")
     return models, models_b, extras, extras_b
 
-def generate(batch_size, caption, height, width):
+def determine_model_sizes(model_type):
+    if model_type == "big-big":
+        c_model_size = "full"
+        b_model_size = "full"
+    elif model_type == "big-small":
+        c_model_size = "lite"
+        b_model_size = "full"
+    elif model_type == "small-big":
+        c_model_size = "full"
+        b_model_size = "lite"
+    elif model_type == "small-small":
+        c_model_size = "lite"
+        b_model_size = "lite"
+    else:
+        # 不正なmodel_typeが指定された場合はエラーメッセージを返す
+        return "Error: Invalid model type specified."
+    return c_model_size,b_model_size
+
+def generate(batch_size, caption, height, width, presion,model_size,essential):
+    download_model(essential, model_size, presion)
+    c_model_size, b_model_size = determine_model_sizes(model_size)
     os.makedirs('output', exist_ok=True)
-    core, core_b = load_config('stage_c_3b', 'stage_b_3b')
+    core, core_b = load_config(f'stage_c_{c_model_size}_{presion}',f'stage_b_{b_model_size}_{presion}')
     models, models_b, extras, extras_b = load_models(core, core_b)
     stage_c_latent_shape, stage_b_latent_shape = calculate_latent_sizes(height, width, batch_size=batch_size)
 
