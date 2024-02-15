@@ -1,6 +1,5 @@
 @echo off
 setlocal enabledelayedexpansion
-
 set VENV_DIR=venv
 
 REM 仮想環境が存在しない場合は作成
@@ -9,6 +8,7 @@ if not exist "%VENV_DIR%" (
     echo 仮想環境を作成しました。
 )
 
+
 REM 仮想環境をアクティベート
 %VENV_DIR%\Scripts\activate.bat
 
@@ -16,7 +16,7 @@ REM requirements.txt から必要なモジュールをインストール
 for /F "tokens=*" %%a in (requirements.txt) do (
     pip show %%a > NUL
     if errorlevel 1 (
-        start /b pip install %%a
+       start /b pip install %%a
     )
 )
 
