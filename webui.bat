@@ -10,7 +10,7 @@ if not exist "%VENV_DIR%" (
 
 
 REM 仮想環境をアクティベート
-set PYTHON="%VENV_DIR%\Scripts\Python.exe"
+set PYTHON=".\%VENV_DIR%\Scripts\activate"
 
 REM requirements.txt から必要なモジュールをインストール
 for /F "tokens=*" %%a in (requirements.txt) do (
