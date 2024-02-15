@@ -22,3 +22,5 @@ for /F "tokens=*" %%a in (requirements.txt) do (
 
 REM srcディレクトリ内のwebui.pyを実行
 python src\webui.py
+
+pause
