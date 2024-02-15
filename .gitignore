@@ -11,3 +11,4 @@ jobs/*.sh
 *.safetensors
 *_test.yaml
 *.pt
+venv/*
