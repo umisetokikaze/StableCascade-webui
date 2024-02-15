@@ -12,3 +12,4 @@ jobs/*.sh
 *_test.yaml
 *.pt
 venv/*
+/temp_models

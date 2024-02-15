@@ -5,6 +5,7 @@ VENV_DIR="venv"
 
 # 仮想環境が存在しない場合は作成
 if [ ! -d "$VENV_DIR" ]; then
+    python -m venv venv
     echo "仮想環境を作成しました。"
 fi
 
