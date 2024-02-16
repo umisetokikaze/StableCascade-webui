@@ -4,11 +4,6 @@ import os
 import requests
 from tqdm import tqdm
 
-def download_file(url, path="./models"):
-    local_filename = url.split('/')[-1]
-    # レスポンスヘッダからファイルサイズを取得
-    response = requests.head(url)
-    total_size_in_bytes= int(response.headers.get('content-length', 0))
 
 
 def download_file(url, path="./models"):
