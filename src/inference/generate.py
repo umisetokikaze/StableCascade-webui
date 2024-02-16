@@ -1,5 +1,6 @@
 
 import os
+import random
 import sys
 import time
 import torch
@@ -51,8 +52,8 @@ def setup_sampling_configs(extras, cfg=4, shift=2, timesteps=20, t_start=1.0):
         't_start': t_start
     })
 
-def generate(core, core_b, models, models_b, extras, extras_b, caption,batch_size, stage_c_latent_shape, stage_b_latent_shape, device):
-    os.makedirs('output', exist_ok=True)
+def generate(core, core_b, models, models_b, extras, extras_b, caption,batch_size, stage_c_latent_shape, stage_b_latent_shape, device,seed=42, outdir='output'):
+    os.makedirs(outdir, exist_ok=True)
 
     # PREPARE CONDITIONS
     batch = {'captions': [caption] * batch_size}
@@ -62,7 +63,7 @@ def generate(core, core_b, models, models_b, extras, extras_b, caption,batch_siz
     unconditions_b = core_b.get_conditions(batch, models_b, extras_b, is_eval=True, is_unconditional=True)
 
     with torch.no_grad(), torch.cuda.amp.autocast(dtype=torch.bfloat16):
-    # torch.manual_seed(42)
+        torch.manual_seed(seed)
         sampling_c = extras.gdf.sample(
             models.generator, conditions, stage_c_latent_shape,
             unconditions, device=device, **extras.sampling_configs,
@@ -93,7 +94,7 @@ def generate(core, core_b, models, models_b, extras, extras_b, caption,batch_siz
             imgs.append(img)
         return imgs
 
-def t2i(batch_size, caption, height, width, presion,model_size,essential,cfg_c,cfg_b,shift_c,shift_b,step_c,step_b):
+def t2i(batch_size, caption, height, width, presion,model_size,essential,outdir,seed,cfg_c,cfg_b,shift_c,shift_b,step_c,step_b):
     device= torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     download_model(essential, model_size, presion)
     c_model_size, b_model_size = determine_model_sizes(model_size)
@@ -105,7 +106,6 @@ def t2i(batch_size, caption, height, width, presion,model_size,essential,cfg_c,c
     
     setup_sampling_configs(extras,cfg=cfg_c, shift=shift_c, timesteps=step_c)
     setup_sampling_configs(extras_b, cfg=cfg_b, shift=shift_b, timesteps=step_b)
-    
     stage_c_latent_shape, stage_b_latent_shape = calculate_latent_sizes(height, width, batch_size=batch_size)
-    images = generate(core, core_b, models, models_b, extras, extras_b, caption,batch_size, stage_c_latent_shape, stage_b_latent_shape, device)
+    images = generate(core, core_b, models, models_b, extras, extras_b, caption,batch_size, stage_c_latent_shape, stage_b_latent_shape, device,seed,outdir)
     return images

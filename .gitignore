@@ -13,3 +13,5 @@ jobs/*.sh
 *.pt
 venv/*
 /temp_models
+test
+*.png
