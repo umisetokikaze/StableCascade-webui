@@ -8,7 +8,7 @@ def webui():
         with gr.Row():
             precision = gr.Dropdown(value="bf16",choices=["bf16","fp32"],label="precision")
             model_size = gr.Dropdown(value="big-small",choices=["big-big","big-small","small-big","small-small"],label="size")
-            essential = gr.Checkbox(label="Download essential models")
+            essential = gr.Checkbox(label="Download essential models"value=True)
         with gr.Row():
             with gr.Column():
                 caption = gr.TextArea(label="Caption")
