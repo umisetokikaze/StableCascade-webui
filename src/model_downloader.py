@@ -38,10 +38,10 @@ def download_model(essential, model_size, presion):
 
     base_url = "https://huggingface.co/stabilityai/StableWurst/resolve/main/"
     model_sizes = {
-        "big-big": [("stage_b_bf16.safetensors", "stage_c_bf16.safetensors") if presion == "bfloat16" else ("stage_b.safetensors", "stage_c.safetensors")],
-        "big-small": [("stage_b_bf16.safetensors", "stage_c_lite_bf16.safetensors") if presion == "bfloat16" else ("stage_b.safetensors", "stage_c_lite.safetensors")],
-        "small-big": [("stage_b_lite_bf16.safetensors", "stage_c_bf16.safetensors") if presion == "bfloat16" else ("stage_b_lite.safetensors", "stage_c.safetensors")],
-        "small-small": [("stage_b_lite_bf16.safetensors", "stage_c_lite_bf16.safetensors") if presion == "bfloat16" else ("stage_b_lite.safetensors", "stage_c_lite.safetensors")]
+        "big-big": [("stage_b_bf16.safetensors", "stage_c_bf16.safetensors") if presion == "bf16" else ("stage_b.safetensors", "stage_c.safetensors")],
+        "big-small": [("stage_b_bf16.safetensors", "stage_c_lite_bf16.safetensors") if presion == "bf16" else ("stage_b.safetensors", "stage_c_lite.safetensors")],
+        "small-big": [("stage_b_lite_bf16.safetensors", "stage_c_bf16.safetensors") if presion == "bf16" else ("stage_b_lite.safetensors", "stage_c.safetensors")],
+        "small-small": [("stage_b_lite_bf16.safetensors", "stage_c_lite_bf16.safetensors") if presion == "bf16" else ("stage_b_lite.safetensors", "stage_c_lite.safetensors")]
     }
 
     if model_size in model_sizes:
