@@ -7,9 +7,10 @@ import argparse  # argparseをインポート
 def parse_args():
     parser = argparse.ArgumentParser(description="Launch Gradio UI for text-to-image generation.")
     parser.add_argument("--share", action="store_true", help="If set, share the Gradio app publicly.")
+    parser.add_argument("--listen", action="store_true", help="If set, listen on all network interfaces (0.0.0.0).")
     return parser.parse_args()
 
-def webui(share=False):  # share引数を受け取るように変更
+def webui(share=False, listen=False): 
     with gr.Blocks() as ui:
         with gr.Row():
             precision = gr.Dropdown(value="bf16", choices=["bf16", "fp32"], label="Precision")
@@ -36,8 +37,9 @@ def webui(share=False):  # share引数を受け取るように変更
             
             run.click(fn=t2i, inputs=[batch_size, caption, height, width, precision, model_size, essential, outdir, seed, cfg_c, cfg_b, shift_c, shift_b, step_c, step_b], outputs=[output])
         
-        ui.launch(share=share)
+        
+        ui.launch(share=share, server_name="0.0.0.0" if listen else None)
 
 if __name__ == "__main__":
     args = parse_args()  # コマンドライン引数を解析
-    webui(share=args.share)  # share引数をwebui関数に渡す
+    webui(share=args.share, listen=args.listen)  # shareとlisten引数をwebui関数に渡す
