@@ -5,3 +5,4 @@
 バグを見つけた場合はissueを建てることを推奨します
 
 cpp build tool(visual studio)を導入していない場合導入に失敗する場合があります
+https://visualstudio.microsoft.com/visual-cpp-build-tools/
