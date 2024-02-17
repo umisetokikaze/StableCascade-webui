@@ -10,5 +10,4 @@ grad_accum_steps: 1
 
 effnet_checkpoint_path: models/effnet_encoder.safetensors
 stage_a_checkpoint_path: models/stage_a.safetensors
-generator_checkpoint_path: models/stage_b_lite_bf16
-.safetensors
+generator_checkpoint_path: models/stage_b_lite_bf16.safetensors
