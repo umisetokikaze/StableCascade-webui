@@ -4,4 +4,4 @@ dtype: bfloat16
 
 effnet_checkpoint_path: models/effnet_encoder.safetensors
 previewer_checkpoint_path: models/previewer.safetensors
-generator_checkpoint_path: models/stage_c.safetensors
+generator_checkpoint_path: models/stage_c_bf16.safetensors
