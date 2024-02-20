@@ -29,7 +29,7 @@ def webui(share=False, listen=False):
                 shift_b = gr.Slider(1, 7, 2, step=1, label="shift_b")
                 step_c = gr.Slider(1, 200, 20, step=2, label="step_c")
                 step_b = gr.Slider(1, 200, 10, step=2, label="step_b")
-                
+
                 outdir = gr.Textbox(label="Output Directory", value="output")
             with gr.Column():
                 output = gr.Gallery(label="Output Image")

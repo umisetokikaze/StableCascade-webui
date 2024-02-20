@@ -54,7 +54,7 @@ def setup_sampling_configs(extras, cfg=4, shift=2, timesteps=20, t_start=1.0):
 
 def generate(core, core_b, models, models_b, extras, extras_b, caption,batch_size, stage_c_latent_shape, stage_b_latent_shape, device,seed=42, outdir='output'):
     os.makedirs(outdir, exist_ok=True)
-
+    seed = random.randint(0, 999999) if seed == -1 else seed
     # PREPARE CONDITIONS
     batch = {'captions': [caption] * batch_size}
     conditions = core.get_conditions(batch, models, extras, is_eval=True, is_unconditional=False, eval_image_embeds=False)

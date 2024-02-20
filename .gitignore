@@ -15,3 +15,4 @@ venv/*
 /temp_models
 test
 *.png
+/temp
